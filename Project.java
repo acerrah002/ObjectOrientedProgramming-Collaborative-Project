@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -163,5 +166,35 @@ public class Project {
         System.out.println("Email: " + email);
         System.out.println("Hours Worked: " + hours);
         System.out.println("Rate Per Hour: " + rate);
+        GenerateHTMLFile(fn, ln, addr, phone, email, hours, rate);
     }
+
+    public static void GenerateHTMLFile(String fn, String ln, String addr, String phone, String email, String hours, String rate) {
+        String htmlContent = String.format(
+                             "<!DOCTYPE html>\n" +
+                             "<html>\n" +
+                             "<head>\n" +
+                             "    <title>My Generated HTML</title>\n" +
+                             "</head>\n" +
+                             "<body>\n" +
+                             "    <h1>Hello %s %s from Java!</h1>\n" +
+                             "    <p>Address: %s</p>\n" +
+                             "    <p>Phone: %s</p>\n" +
+                             "    <p>Email: %s</p>\n" +
+                             "    <p>Hours Worked: %s</p>\n" +
+                             "    <p>Rate Per Hour: %s</p>\n" +
+                             "</body>\n" +
+                             "</html>",
+                             fn, ln, addr, phone, email, hours, rate);
+    
+        try {
+            FileWriter writer = new FileWriter("InvoiceOutput.html");
+            writer.write(htmlContent);
+            writer.close();
+            System.out.println("HTML file 'InvoiceOutput.html' generated successfully.");
+        } catch (IOException e) {
+            System.err.println("Error generating HTML file: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }   
 }
