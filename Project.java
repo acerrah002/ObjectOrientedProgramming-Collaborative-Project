@@ -1,18 +1,18 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 
 public class Project {
     public static void main(String[] args) {
         GUI();
     }
 
-    public static void CheckIfCorrect(String[] args) {
-        
-    }
+   
 
     public static void GUI(){
         
@@ -128,10 +128,40 @@ public class Project {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
         panel.add(ratePerHourInput, gbc);
+
+        JButton submit = new JButton("Submit");
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+       gbc.gridwidth = 2;
+       gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panel.add(submit, gbc);
+
+        submit.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+                String fn = firstNameInput.getText();
+                String ln = lastNameInput.getText();
+                String addr = addressInput.getText();
+                String phone = phoneNumberInput.getText();
+                String email = emailInput.getText();
+                String hours = hoursWorkedInput.getText();                
+                String rate = ratePerHourInput.getText();
+                CheckIfCorrect(fn, ln, addr, phone, email, hours, rate);
+           }
+        });
         
         frame.getContentPane().add(panel, BorderLayout.NORTH);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    } 
+    public static void CheckIfCorrect(String fn, String ln, String addr, String phone, String email, String hours, String rate) {
+        System.out.println("First Name: " + fn);
+        System.out.println("Last Name: " + ln);
+        System.out.println("Address: " + addr);
+        System.out.println("Phone Number: " + phone);
+        System.out.println("Email: " + email);
+        System.out.println("Hours Worked: " + hours);
+        System.out.println("Rate Per Hour: " + rate);
     }
 }
