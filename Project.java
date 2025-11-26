@@ -16,7 +16,7 @@ public class Project {
 
     public static void GUI(){
         
-        JFrame frame = new JFrame("Two Row Form Example");
+        JFrame frame = new JFrame("InvoiceMaker");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
