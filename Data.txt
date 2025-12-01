@@ -1,0 +1,2 @@
+Firstname: Luis, Lastname: Doe, Address: 123 Main St, Phonenumber:555-1234, Email: john.doe@example.com, Hoursworked: 25, Rateperhour: 15
+Firstname: John, Lastname: Mathew, Address: 647 ErmSigma, Phonenumber:892-2222, Email: DispatchBestgame@gmail.com, Hoursworked: 30, Rateperhour: 20
