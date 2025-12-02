@@ -33,9 +33,25 @@ public class GUI{
         gbc.insets = new Insets(8, 8, 8, 8);
         
         int row = 0;
-        
+
+
         JTextField firstNameInput = new JTextField(20);
         setupFieldLabelsText(panel, gbc, "First Name:", firstNameInput, row++);
+
+
+        final JLabel currentuserposition = new JLabel("Current Position: 0");
+        currentuserposition.setEnabled(false);
+
+        // currentuser position is unique so i had to add it seperately
+        gbc.gridx = 5; 
+        gbc.gridy = 0;
+        gbc.gridwidth = 1; 
+        gbc.anchor = GridBagConstraints.EAST; 
+        panel.add(currentuserposition, gbc);
+        gbc.weightx = 1.0; 
+        gbc.anchor = GridBagConstraints.WEST; 
+
+        
         
         JTextField lastNameInput = new JTextField(20);
         setupFieldLabelsText(panel, gbc, "Last Name:", lastNameInput, row++);
@@ -69,9 +85,13 @@ public class GUI{
         setupFieldButtons(panel, gbc, addButton,2, row);
         addButton.setToolTipText("Add the current user data to the saved list.");
 
+        
+        
+
         JButton removeButton = new JButton("-");
         setupFieldButtons(panel, gbc, removeButton,3, row);
         removeButton.setToolTipText("Remove the current user data from the saved list.");
+        removeButton.setEnabled(false); //Disabled by defult because the user isn't viewing the userdata just entering
 
         JButton previousButton = new JButton("Previous <<");
         setupFieldButtons(panel, gbc, previousButton, 4, row);
@@ -84,11 +104,13 @@ public class GUI{
         nextButton.setToolTipText("View the next saved user data.");
         nextButton.setEnabled(false); //Disabled by defult so the user can choose to use it
 
+        
 
+        
         frame.getContentPane().add(panel, BorderLayout.NORTH);
-                frame.pack();
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
+        frame.setSize(1000, 350); 
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
                 
         //Sumbit functionality
         submit.addActionListener(new ActionListener() {
@@ -110,8 +132,10 @@ public class GUI{
            public void actionPerformed(ActionEvent e) {
                 x++;
                 if (x % 2 == 1) {
+                    //Main menu
                     nextButton.setEnabled(false);
                     previousButton.setEnabled(false);
+                    removeButton.setEnabled(false);
                     firstNameInput.setText("");
                     lastNameInput.setText("");
                     addressInput.setText("");
@@ -119,12 +143,16 @@ public class GUI{
                     emailInput.setText("");
                     hoursWorkedInput.setText("");
                     ratePerHourInput.setText("");
+                    // RESET currentuserposition label
+                    currentuserposition.setText("Current Position: 0");
+                    currentuserposition.setEnabled(false);
                 } else {
                     ArrayList<ArrayList<String>> users = ReadFile.getArrayList();
                     if (users == null || users.isEmpty()) {
                         // no saved users
                         nextButton.setEnabled(false);
                         previousButton.setEnabled(false);
+                        removeButton.setEnabled(false);
                         firstNameInput.setText("EmptyList");
                         lastNameInput.setText("EmptyList");
                         addressInput.setText("EmptyList");
@@ -132,12 +160,18 @@ public class GUI{
                         emailInput.setText("EmptyList");
                         hoursWorkedInput.setText("EmptyList");
                         ratePerHourInput.setText("EmptyList");
+                        // Current is back to 0 since no items
+                        currentuserposition.setText("Current Position: 0");
+                        currentuserposition.setEnabled(true);
                         return;
                     }
                     else{
+                    //adjusting user data
                     int size = users.size();
                     current = ((current % size) + size) % size; //using modulo to make a circular array
                     ArrayList<String> user = ReadFile.getArrayList().get(current);
+                    //current will be displayed
+
                     firstNameInput.setText(user.get(0));
                     lastNameInput.setText(user.get(1));
                     addressInput.setText(user.get(2));
@@ -145,9 +179,13 @@ public class GUI{
                     emailInput.setText(user.get(4));
                     hoursWorkedInput.setText(user.get(5));
                     ratePerHourInput.setText(user.get(6));
+                    // current now shows the current position
+                    currentuserposition.setText("Current Position: " + (current + 1) + " of " + size);
+                    currentuserposition.setEnabled(true); // Enable label when viewing data
                     }
                     previousButton.setEnabled(true);
                     nextButton.setEnabled(true);
+                    removeButton.setEnabled(true);
                 }
            }
         });
@@ -167,6 +205,9 @@ public class GUI{
                     emailInput.setText(user.get(4));
                     hoursWorkedInput.setText(user.get(5));
                     ratePerHourInput.setText(user.get(6));
+
+                    // current shows current position
+                    currentuserposition.setText("Current Position: " + (current + 1) + " of " + size);
                 }
            }
         });
@@ -186,25 +227,52 @@ public class GUI{
                     emailInput.setText(user.get(4));
                     hoursWorkedInput.setText(user.get(5));
                     ratePerHourInput.setText(user.get(6));
+                     // UPDATE currentuserposition label
+                    currentuserposition.setText("Current Position: " + (current + 1) + " of " + size);
                 }
            }
         });
 
+
+        //Add user data to data file
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (CreateFile.CheckIfFileExists()) {
-                    CreateFile.AppendToFile(firstNameInput.getText(), lastNameInput.getText(),
-                                           addressInput.getText(), phoneNumberInput.getText(),
-                                           emailInput.getText(), hoursWorkedInput.getText(),
-                                           ratePerHourInput.getText());
+                CreateFile.AppendToFile(firstNameInput.getText(), lastNameInput.getText(),addressInput.getText(), phoneNumberInput.getText(),emailInput.getText(), hoursWorkedInput.getText(),ratePerHourInput.getText());
+                //Updates the current arraysize not the position
+                ArrayList<ArrayList<String>> all = ReadFile.getArrayList();                           
+                if (all == null) return;
+                int size = all.size();
+                currentuserposition.setText("Current Position: " + (current + 1) + " of " + size);
                 } else {
-                    CreateFile.writeToFile(firstNameInput.getText(), lastNameInput.getText(),
-                                          addressInput.getText(), phoneNumberInput.getText(),
-                                          emailInput.getText(), hoursWorkedInput.getText(),
-                                          ratePerHourInput.getText());
+                    CreateFile.writeToFile(firstNameInput.getText(), lastNameInput.getText(),addressInput.getText(), phoneNumberInput.getText(),emailInput.getText(), hoursWorkedInput.getText(),ratePerHourInput.getText());
+                    ArrayList<ArrayList<String>> all = ReadFile.getArrayList();                      
+                    if (all == null) return;
+                    int size = all.size();
+                    current = (current + 1 + size) % size;
+                    currentuserposition.setText("Current Position: " + (current + 1) + " of " + size);
                 }
             }
         });
+        
+        //Remove user data from data file
+        /* 
+        removeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (CreateFile.CheckIfFileExists()) {
+                    ArrayList<ArrayList<String>> all = ReadFile.getArrayList();
+                    if (all == null) return;
+                    int size = all.size();
+                    //removes user data
+                    ReadFile.removeFromFile(current);
+                    current = (current - 1 + size) % size;
+                    currentuserposition.setText("Current Position: " + (current) + " of " + size);
+                } else {
+                    //file does not exist pop up
+
+                }
+            }
+        });*/
     }
 
 
@@ -212,7 +280,7 @@ public class GUI{
     //This method sets the labels and text field as a grid and reduces the amount of repeated code
     public static void setupFieldLabelsText(JPanel panel, GridBagConstraints gbc, String labelText, JTextField textField, int row) {
         JLabel label = new JLabel(labelText);
-        gbc.gridx = 0; gbc.gridy = row; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1.0;
+        gbc.gridx = 0; gbc.gridy = row; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 0.0;
         panel.add(label, gbc);
 
         gbc.gridx = 1; gbc.gridy = row; gbc.fill = GridBagConstraints.HORIZONTAL; gbc.weightx = 1.0;

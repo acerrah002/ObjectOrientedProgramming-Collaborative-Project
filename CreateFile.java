@@ -1,4 +1,3 @@
-
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -20,7 +19,7 @@ public class CreateFile {
   public static void writeToFile(String Firstname, String LastName, String Address, String PhoneNumber, String Email, String Hoursworked, String RateperHour) {
     try {
       FileWriter myWriter = new FileWriter("Data.txt");
-      myWriter.write(String.format("Firstname: %s, Lastname: %s, Address: %s, Phonenumber:%s, Email: %s, Hoursworked: %s, Rateperhour: %s",
+      myWriter.write(String.format("Firstname: %s, Lastname: %s, Address: %s, Phonenumber:%s, Email: %s, Hoursworked: %s, Rateperhour: %s\n",
        Firstname, LastName, Address, PhoneNumber, Email, Hoursworked, RateperHour));
       myWriter.close();
       System.out.println("Successfully wrote to the file.");
@@ -32,15 +31,14 @@ public class CreateFile {
   
   // Append to file
   public static void AppendToFile(String Firstname, String LastName, String Address, String PhoneNumber, String Email, String Hoursworked, String RateperHour) {
-
     try (FileWriter myWriter = new FileWriter("Data.txt", true)) {
-      myWriter.write(String.format("\n"+"Firstname: %s, Lastname: %s, Address: %s, Phonenumber:%s, Email: %s, Hoursworked: %s, Rateperhour: %s",
-       Firstname, LastName, Address, PhoneNumber, Email, Hoursworked, RateperHour));
+      myWriter.write(String.format("Firstname: %s, Lastname: %s, Address: %s, Phonenumber:%s, Email: %s, Hoursworked: %s, Rateperhour: %s\n",
+      Firstname, LastName, Address, PhoneNumber, Email, Hoursworked, RateperHour));
       System.out.println("Successfully appended to the file.");
     } catch (IOException e) {
       System.out.println("An error occurred.");
       e.printStackTrace();
-    }
+  }
   }
   
   // Check if file exists
