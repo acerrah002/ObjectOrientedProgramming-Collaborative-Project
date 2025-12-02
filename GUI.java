@@ -120,7 +120,7 @@ public class GUI{
                     hoursWorkedInput.setText("");
                     ratePerHourInput.setText("");
                 } else {
-                    ArrayList<ArrayList<String>> users = ReadingFileArrayList.getArrayList();
+                    ArrayList<ArrayList<String>> users = ReadFile.getArrayList();
                     if (users == null || users.isEmpty()) {
                         // no saved users
                         nextButton.setEnabled(false);
@@ -137,7 +137,7 @@ public class GUI{
                     else{
                     int size = users.size();
                     current = ((current % size) + size) % size; //using modulo to make a circular array
-                    ArrayList<String> user = ReadingFileArrayList.getArrayList().get(current);
+                    ArrayList<String> user = ReadFile.getArrayList().get(current);
                     firstNameInput.setText(user.get(0));
                     lastNameInput.setText(user.get(1));
                     addressInput.setText(user.get(2));
@@ -154,11 +154,11 @@ public class GUI{
         //Next functionality
         nextButton.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
-                ArrayList<ArrayList<String>> all = ReadingFileArrayList.getArrayList();
+                ArrayList<ArrayList<String>> all = ReadFile.getArrayList();
                 if (all == null) return;
                 int size = all.size();
                 current = (current + 1 + size) % size; //using modulo to make a circular array for next
-                ArrayList<String> user = ReadingFileArrayList.getArrayList().get(current);
+                ArrayList<String> user = ReadFile.getArrayList().get(current);
                 if (user != null) {
                     firstNameInput.setText(user.get(0));
                     lastNameInput.setText(user.get(1));
@@ -173,11 +173,11 @@ public class GUI{
         //Previous functionality
         previousButton.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
-                ArrayList<ArrayList<String>> all = ReadingFileArrayList.getArrayList();
+                ArrayList<ArrayList<String>> all = ReadFile.getArrayList();
                 if (all == null) return;
                 int size = all.size();
                 current = (current - 1 + size) % size; //using modulo to make a circular array for previous
-                ArrayList<String> user = ReadingFileArrayList.getArrayList().get(current);
+                ArrayList<String> user = ReadFile.getArrayList().get(current);
                 if (user != null) {
                     firstNameInput.setText(user.get(0));
                     lastNameInput.setText(user.get(1));
@@ -189,7 +189,25 @@ public class GUI{
                 }
            }
         });
-    } 
+
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (CreateFile.CheckIfFileExists()) {
+                    CreateFile.AppendToFile(firstNameInput.getText(), lastNameInput.getText(),
+                                           addressInput.getText(), phoneNumberInput.getText(),
+                                           emailInput.getText(), hoursWorkedInput.getText(),
+                                           ratePerHourInput.getText());
+                } else {
+                    CreateFile.writeToFile(firstNameInput.getText(), lastNameInput.getText(),
+                                          addressInput.getText(), phoneNumberInput.getText(),
+                                          emailInput.getText(), hoursWorkedInput.getText(),
+                                          ratePerHourInput.getText());
+                }
+            }
+        });
+    }
+
+
 
     //This method sets the labels and text field as a grid and reduces the amount of repeated code
     public static void setupFieldLabelsText(JPanel panel, GridBagConstraints gbc, String labelText, JTextField textField, int row) {

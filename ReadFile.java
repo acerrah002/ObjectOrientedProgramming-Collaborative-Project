@@ -6,9 +6,7 @@ import java.util.Scanner;
 public class ReadFile {
   public static void main(String[] args) {
   }
-}
-
-class ReadingFileArrayList{
+  //Reads file
   public static ArrayList<ArrayList<String>> getArrayList() {
     File myObj = new File("Data.txt");
      ArrayList<ArrayList<String>> allusers = new ArrayList<ArrayList<String>>();
