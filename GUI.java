@@ -1,9 +1,6 @@
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -237,15 +234,15 @@ public class GUI{
         //Add user data to data file
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (CreateFile.CheckIfFileExists()) {
-                CreateFile.AppendToFile(firstNameInput.getText(), lastNameInput.getText(),addressInput.getText(), phoneNumberInput.getText(),emailInput.getText(), hoursWorkedInput.getText(),ratePerHourInput.getText());
+                if (Writetofile.CheckIfFileExists()) {
+                Writetofile.AppendToFile(firstNameInput.getText(), lastNameInput.getText(),addressInput.getText(), phoneNumberInput.getText(),emailInput.getText(), hoursWorkedInput.getText(),ratePerHourInput.getText());
                 //Updates the current arraysize not the position
                 ArrayList<ArrayList<String>> all = ReadFile.getArrayList();                           
                 if (all == null) return;
                 int size = all.size();
                 currentuserposition.setText("Current Position: " + (current + 1) + " of " + size);
                 } else {
-                    CreateFile.writeToFile(firstNameInput.getText(), lastNameInput.getText(),addressInput.getText(), phoneNumberInput.getText(),emailInput.getText(), hoursWorkedInput.getText(),ratePerHourInput.getText());
+                    Writetofile.writeToFile(firstNameInput.getText(), lastNameInput.getText(),addressInput.getText(), phoneNumberInput.getText(),emailInput.getText(), hoursWorkedInput.getText(),ratePerHourInput.getText());
                     ArrayList<ArrayList<String>> all = ReadFile.getArrayList();                      
                     if (all == null) return;
                     int size = all.size();

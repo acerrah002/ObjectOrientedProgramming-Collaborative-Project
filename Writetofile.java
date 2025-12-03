@@ -3,7 +3,7 @@ import java.io.IOException;
 
 
 // Main class to create or append to a file based on its existence
-public class CreateFile {
+public class Writetofile {
   public static void main(String[] args) {
     //writeToFile o1 = new writeToFile();
     //AppendToFile o2 = new AppendToFile();

@@ -1,2 +1,3 @@
 Firstname: Henry, Lastname: A-P, Address: 345 Eric street, Phonenumber:647 899 7777, Email: example@gmail.com, Hoursworked: 25, Rateperhour: 20
 Firstname: Xavier, Lastname: Tylor, Address: 234 willy st, Phonenumber:647 362 8484, Email: E2@gmail.com, Hoursworked: 10, Rateperhour: 20
+Firstname: Xavier, Lastname: Tylor, Address: 234 willy st, Phonenumber:647 362 8484, Email: E2@gmail.com, Hoursworked: 10, Rateperhour: 20
