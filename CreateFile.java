@@ -32,7 +32,7 @@ public class CreateFile {
   // Append to file
   public static void AppendToFile(String Firstname, String LastName, String Address, String PhoneNumber, String Email, String Hoursworked, String RateperHour) {
     try (FileWriter myWriter = new FileWriter("Data.txt", true)) {
-      myWriter.write(String.format("Firstname: %s, Lastname: %s, Address: %s, Phonenumber:%s, Email: %s, Hoursworked: %s, Rateperhour: %s\n",
+      myWriter.write(String.format("\nFirstname: %s, Lastname: %s, Address: %s, Phonenumber:%s, Email: %s, Hoursworked: %s, Rateperhour: %s",
       Firstname, LastName, Address, PhoneNumber, Email, Hoursworked, RateperHour));
       System.out.println("Successfully appended to the file.");
     } catch (IOException e) {
