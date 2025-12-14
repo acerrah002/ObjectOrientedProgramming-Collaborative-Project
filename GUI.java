@@ -1,9 +1,6 @@
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -237,15 +234,15 @@ public class GUI{
         //Add user data to data file
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (CreateFile.CheckIfFileExists()) {
-                CreateFile.AppendToFile(firstNameInput.getText(), lastNameInput.getText(),addressInput.getText(), phoneNumberInput.getText(),emailInput.getText(), hoursWorkedInput.getText(),ratePerHourInput.getText());
+                if (Writetofile.CheckIfFileExists()) {
+                Writetofile.AppendToFile(firstNameInput.getText(), lastNameInput.getText(),addressInput.getText(), phoneNumberInput.getText(),emailInput.getText(), hoursWorkedInput.getText(),ratePerHourInput.getText());
                 //Updates the current arraysize not the position
                 ArrayList<ArrayList<String>> all = ReadFile.getArrayList();                           
                 if (all == null) return;
                 int size = all.size();
                 currentuserposition.setText("Current Position: " + (current + 1) + " of " + size);
                 } else {
-                    CreateFile.writeToFile(firstNameInput.getText(), lastNameInput.getText(),addressInput.getText(), phoneNumberInput.getText(),emailInput.getText(), hoursWorkedInput.getText(),ratePerHourInput.getText());
+                    Writetofile.writeToFile(firstNameInput.getText(), lastNameInput.getText(),addressInput.getText(), phoneNumberInput.getText(),emailInput.getText(), hoursWorkedInput.getText(),ratePerHourInput.getText());
                     ArrayList<ArrayList<String>> all = ReadFile.getArrayList();                      
                     if (all == null) return;
                     int size = all.size();
@@ -302,35 +299,7 @@ public class GUI{
         System.out.println("Email: " + email);
         System.out.println("Hours Worked: " + hours);
         System.out.println("Rate Per Hour: " + rate);
-        GenerateHTMLFile(fn, ln, addr, phone, email, hours, rate);
+        GenerateAndSaveHTML.generateAndSaveHtml(rate, addr, phone, email, hours, rate);
     }
-
-    public static void GenerateHTMLFile(String fn, String ln, String addr, String phone, String email, String hours, String rate) {
-        String htmlContent = String.format(
-                             "<!DOCTYPE html>\n" +
-                             "<html>\n" +
-                             "<head>\n" +
-                             "    <title>My Generated HTML</title>\n" +
-                             "</head>\n" +
-                             "<body>\n" +
-                             "    <h1>Hello %s %s from Java!</h1>\n" +
-                             "    <p>Address: %s</p>\n" +
-                             "    <p>Phone: %s</p>\n" +
-                             "    <p>Email: %s</p>\n" +
-                             "    <p>Hours Worked: %s</p>\n" +
-                             "    <p>Rate Per Hour: %s</p>\n" +
-                             "</body>\n" +
-                             "</html>",
-                             fn, ln, addr, phone, email, hours, rate);
-    
-        try {
-            FileWriter writer = new FileWriter("InvoiceOutput.html");
-            writer.write(htmlContent);
-            writer.close();
-            System.out.println("HTML file 'InvoiceOutput.html' generated successfully.");
-        } catch (IOException e) {
-            System.err.println("Error generating HTML file: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }   
+ 
 }
