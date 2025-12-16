@@ -1,5 +1,10 @@
 package Builder;
 
+/**
+ * Director directs the building of the invoice HTML. Gets information and gives information to the builder.
+ * Can modify the information it receives any way it wants if needed.
+ * There can only be one invoiceDirector throughout the application, thus uses double checked locking singleton design pattern.
+ */
 public class invoiceDirector {
     private String userName;
     private String addressV;
@@ -9,6 +14,27 @@ public class invoiceDirector {
     private int hourVariable;
     private double rateVariable;
     private double totalVariable;
+
+    /*
+    DCLSingleton implementation.
+     */
+    private static volatile invoiceDirector director = null;
+    private invoiceDirector() {}
+
+    public static invoiceDirector getInstance()
+    {
+        if (director == null)
+        {
+            synchronized (invoiceDirector.class)
+            {
+                if (director == null)
+                {
+                    director = new invoiceDirector();
+                }
+            }
+        }
+        return director;
+    }
 
     public void getInformation(String userName, String addressV, String phoneV, String emailV, String dateV, int hourVariable, double rateVariable, double totalVariable)
     {

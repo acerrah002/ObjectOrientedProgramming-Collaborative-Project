@@ -18,7 +18,7 @@ public class GenerateAndSaveHTML {
 
         // Client request being served.
         invoiceHTMLBuilder invoiceBuilder = new invoiceHTMLBuilder();
-        invoiceDirector director = new invoiceDirector();
+        invoiceDirector director = invoiceDirector.getInstance();
         director.getInformation(name, address, phone, email, dateV, hourVariable, rateVariable, totalVariable);
         director.construct(invoiceBuilder);
         htmlContent invoiceHTML = invoiceBuilder.getResult();

@@ -2,6 +2,10 @@ package APIs;
 
 import Models.invoiceHTMLContent;
 
+/**
+ * Interface for the invoice html to be generated.
+ * Provides all necessary information to be made.
+ */
 public interface invoiceHTMLBuilderAPI {
     void build_userName(String userName);
     void build_addressV(String addressV);

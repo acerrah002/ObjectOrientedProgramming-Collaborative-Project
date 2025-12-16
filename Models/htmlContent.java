@@ -11,5 +11,10 @@ public abstract class htmlContent {
         return htmlContent;
     }
 
-    public void setHtmlContent(String htmlContent) { this.htmlContent = htmlContent; }
+    public void setHtmlContentDefaultWay(String htmlGiven)
+    {
+        this.htmlContent = htmlGiven;
+    }
+
+    public abstract void setHtmlContent();
 }

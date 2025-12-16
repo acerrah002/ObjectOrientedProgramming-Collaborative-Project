@@ -3,6 +3,9 @@ package Builder;
 import APIs.invoiceHTMLBuilderAPI;
 import Models.invoiceHTMLContent;
 
+/**
+ * Builder for the invoice HTML. Can also modify the building process anyway it wants by modifying information it has been given.
+ */
 public class invoiceHTMLBuilder implements invoiceHTMLBuilderAPI {
     private invoiceHTMLContent invoiceHTML = new invoiceHTMLContent();
 
@@ -48,7 +51,7 @@ public class invoiceHTMLBuilder implements invoiceHTMLBuilderAPI {
 
     @Override
     public void build_htmlContent() {
-        invoiceHTML.setHtmlResult();
+        invoiceHTML.setHtmlContent();
     }
 
     @Override

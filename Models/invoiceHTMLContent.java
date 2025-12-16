@@ -43,10 +43,13 @@ public class invoiceHTMLContent extends htmlContent {
         this.totalVariable = totalVariable;
     }
 
-    public void setHtmlResult()
+    @Override
+    public void setHtmlContent()
     {
-//        System.out.println("DO YOU SEE?: " + this.userName);
-        this.setHtmlContent("""
+        /*
+        While using the default way, it allows for more possible information to be added to the HTML if needed such as any big computations can be made above it.
+         */
+        this.setHtmlContentDefaultWay("""
                 <!DOCTYPE html>
                 <html lang="en">
                 <head>
