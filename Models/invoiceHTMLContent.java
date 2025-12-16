@@ -45,6 +45,7 @@ public class invoiceHTMLContent extends htmlContent {
 
     public void setHtmlResult()
     {
+//        System.out.println("DO YOU SEE?: " + this.userName);
         this.setHtmlContent("""
                 <!DOCTYPE html>
                 <html lang="en">
@@ -64,6 +65,6 @@ public class invoiceHTMLContent extends htmlContent {
                     <h2>Total: $%.2f</h2>
                 </body>
                 </html>
-                """.formatted(userName, addressV, phoneV, emailV, dateV, hourVariable, rateVariable, totalVariable));
+                """.formatted(this.userName, addressV, phoneV, emailV, dateV, hourVariable, rateVariable, totalVariable));
     }
 }

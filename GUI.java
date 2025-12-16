@@ -299,7 +299,8 @@ public class GUI{
         System.out.println("Email: " + email);
         System.out.println("Hours Worked: " + hours);
         System.out.println("Rate Per Hour: " + rate);
-        GenerateAndSaveHTML.generateAndSaveHtml(rate, addr, phone, email, hours, rate);
+        String fullName = fn + " " + ln;
+        GenerateAndSaveHTML.generateAndSaveHtml(fullName, addr, phone, email, hours, rate);
     }
  
 }

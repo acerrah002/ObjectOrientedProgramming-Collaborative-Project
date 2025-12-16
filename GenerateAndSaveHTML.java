@@ -23,6 +23,8 @@ public class GenerateAndSaveHTML {
         director.construct(invoiceBuilder);
         htmlContent invoiceHTML = invoiceBuilder.getResult();
 
+//        System.out.println("From generateandasvehtml(): " + name);
+
 //        String userName = name;
 //        String addressV = address;
 //        String phoneV = phone;
