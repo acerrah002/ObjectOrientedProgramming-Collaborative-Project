@@ -45,36 +45,94 @@ public class invoiceHTMLContent extends htmlContent {
         this.totalVariable = totalVariable;
     }
 
-    // Added by ZM for Visitor Pattern
     public void accept(InvoiceVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void setHtmlContent()
-    {
-        /*
-        While using the default way, it allows for more possible information to be added to the HTML if needed such as any big computations can be made above it.
-         */
+    public void setHtmlContent() {
         this.setHtmlContentDefaultWay("""
                 <!DOCTYPE html>
                 <html lang="en">
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Invoice Document</title>
+                    <title>Invoice - %s</title>
+                    <style>
+                        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #555; line-height: 1.6; }
+                        .invoice-box { max-width: 800px; margin: auto; padding: 30px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-size: 16px; }
+                        .invoice-box table { width: 100%%; line-height: inherit; text-align: left; border-collapse: collapse; }
+                        .invoice-box table td { padding: 5px; vertical-align: top; }
+                        .invoice-box table tr td:nth-child(2) { text-align: right; }
+                        .invoice-box table tr.top table td { padding-bottom: 20px; }
+                        .invoice-box table tr.information table td { padding-bottom: 40px; }
+                        .invoice-box table tr.heading td { background: #eee; border-bottom: 1px solid #ddd; font-weight: bold; }
+                        .invoice-box table tr.item td { border-bottom: 1px solid #eee; }
+                        .invoice-box table tr.item.last td { border-bottom: none; }
+                        .invoice-box table tr.total td:nth-child(2) { border-top: 2px solid #eee; font-weight: bold; font-size: 1.2em; color: #000; }
+                        .brand { font-size: 24px; font-weight: bold; color: #333; }
+                    </style>
                 </head>
                 <body>
-                    <h1>Invoice for %s</h1>
-                    <p><strong>Address:</strong> %s</p>
-                    <p><strong>Phone:</strong> %s</p>
-                    <p><strong>Email:</strong> %s</p>
-                    <p><strong>Date:</strong> %s</p>
-                    <p><strong>Hours Worked:</strong> %d</p>
-                    <p><strong>Rate Per Hour:</strong> $%.2f</p>
-                    <h2>Total: $%.2f</h2>
+                    <div class="invoice-box">
+                        <table>
+                            <tr class="top">
+                                <td colspan="2">
+                                    <table>
+                                        <tr>
+                                            <td class="brand">INVOICE</td>
+                                            <td>
+                                                Date: %s<br>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr class="information">
+                                <td colspan="2">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <strong>Bill To:</strong><br>
+                                                %s<br>
+                                                %s<br>
+                                                %s
+                                            </td>
+                                            <td>
+                                                <strong>Contact:</strong><br>
+                                                %s
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr class="heading">
+                                <td>Description</td>
+                                <td>Amount</td>
+                            </tr>
+                            <tr class="item">
+                                <td>Services Rendered (%.1f hours at $%.2f/hr)</td>
+                                <td>$%.2f</td>
+                            </tr>
+                            <tr class="total">
+                                <td></td>
+                                <td>Total: $%.2f</td>
+                            </tr>
+                        </table>
+                    </div>
                 </body>
                 </html>
-                """.formatted(this.userName, addressV, phoneV, emailV, dateV, hourVariable, rateVariable, totalVariable));
+                """.formatted(
+                        this.userName,
+                        this.dateV,
+                        this.userName,
+                        this.addressV,
+                        this.phoneV,
+                        this.emailV,
+                        (double) this.hourVariable,
+                        this.rateVariable,
+                        this.totalVariable,
+                        this.totalVariable
+                ));
     }
 }
