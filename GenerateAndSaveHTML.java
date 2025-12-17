@@ -1,6 +1,10 @@
 import Builder.invoiceDirector;
 import Builder.invoiceHTMLBuilder;
 import Models.htmlContent;
+import Models.invoiceHTMLContent;
+import Visitor.InvoiceValidationVisitor;
+import Visitor.InvoicePrintVisitor;
+
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,6 +26,11 @@ public class GenerateAndSaveHTML {
         director.getInformation(name, address, phone, email, dateV, hourVariable, rateVariable, totalVariable);
         director.construct(invoiceBuilder);
         htmlContent invoiceHTML = invoiceBuilder.getResult();
+
+        // Added by ZM - Visitor Pattern
+        invoiceHTMLContent invoice = (invoiceHTMLContent) invoiceBuilder.getResult();
+        invoice.accept(new InvoiceValidationVisitor());
+        invoice.accept(new InvoicePrintVisitor());
 
 //        System.out.println("From generateandasvehtml(): " + name);
 

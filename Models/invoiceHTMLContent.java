@@ -1,5 +1,7 @@
 package Models;
 
+import Visitor.InvoiceVisitor;
+
 public class invoiceHTMLContent extends htmlContent {
 
     private String userName;
@@ -41,6 +43,11 @@ public class invoiceHTMLContent extends htmlContent {
 
     public void setTotalVariable(double totalVariable) {
         this.totalVariable = totalVariable;
+    }
+
+    // Added by ZM for Visitor Pattern
+    public void accept(InvoiceVisitor visitor) {
+        visitor.visit(this);
     }
 
     @Override
