@@ -1,5 +1,9 @@
 import Builder.invoiceDirector;
 import Builder.invoiceHTMLBuilder;
+import Chain.BuildInvoiceHandler;
+import Chain.InvoiceHandler;
+import Chain.InvoiceRequest;
+import Chain.ValidationHandler;
 import Models.htmlContent;
 import Models.invoiceHTMLContent;
 import Visitor.InvoiceValidationVisitor;
@@ -31,6 +35,21 @@ public class GenerateAndSaveHTML {
         invoiceHTMLContent invoice = (invoiceHTMLContent) invoiceBuilder.getResult();
         invoice.accept(new InvoiceValidationVisitor());
         invoice.accept(new InvoicePrintVisitor());
+
+        // Added by ZM - Chain of Responsibility
+        InvoiceRequest req = new InvoiceRequest();
+        req.name = name;
+        req.address = address;
+        req.phone = phone;
+        req.email = email;
+        req.hours = hourVariable;
+        req.rate = rateVariable;
+
+        InvoiceHandler validation = new ValidationHandler();
+        InvoiceHandler build = new BuildInvoiceHandler();
+
+        validation.setNext(build);
+        validation.handle(req);
 
 //        System.out.println("From generateandasvehtml(): " + name);
 
