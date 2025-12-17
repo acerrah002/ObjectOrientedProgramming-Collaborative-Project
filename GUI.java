@@ -305,15 +305,56 @@ public class GUI{
 
 
     public static void CheckIfCorrect(String fn, String ln, String addr, String phone, String email, String hours, String rate) {
-        System.out.println("First Name: " + fn);
-        System.out.println("Last Name: " + ln);
-        System.out.println("Address: " + addr);
-        System.out.println("Phone Number: " + phone);
-        System.out.println("Email: " + email);
-        System.out.println("Hours Worked: " + hours);
-        System.out.println("Rate Per Hour: " + rate);
+        // Check if names are letters only
+        if (!isAlpha(fn) || !isAlpha(ln)) {
+            System.out.println("Error: Name should only contain letters.");
+            return;
+        }
+
+        // Check if phone, hours and rate are numeric
+        if (!isNumeric(phone)) {
+            System.out.println("Error: Phone number must be digits.");
+            return;
+        }
+
+        if (!isNumeric(hours) || !isNumeric(rate)) {
+            System.out.println("Error: Hours and Rate must be numbers.");
+            return;
+        }
+
+        // Check if email has an @ and .
+        if (!email.contains("@") || !email.contains(".")) {
+            System.out.println("Error: Invalid email format.");
+            return;
+        }
+
+        // If everything is fine proceed
+        System.out.println("Validation passed. Generating HTML...");
         String fullName = fn + " " + ln;
-        GenerateAndSaveHTML.generateAndSaveHtml(fullName, addr, phone, email, hours,rate);
+        GenerateAndSaveHTML.generateAndSaveHtml(fullName, addr, phone, email, hours, rate);
+    }
+
+    // Simple helper to check for letters
+    public static boolean isAlpha(String input) {
+        if (input == null || input.isEmpty()) return false;
+        for (char c : input.toCharArray()) {
+            if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Simple helper to check for nums
+    public static boolean isNumeric(String input) {
+        if (input == null || input.isEmpty()) return false;
+        for (char c : input.toCharArray()) {
+            // allows for decimals
+            if (!Character.isDigit(c) && c != '.') {
+                return false;
+            }
+        }
+        return true;
     }
 
 
