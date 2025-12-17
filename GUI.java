@@ -313,7 +313,7 @@ public class GUI{
         System.out.println("Hours Worked: " + hours);
         System.out.println("Rate Per Hour: " + rate);
         String fullName = fn + " " + ln;
-        GenerateAndSaveHTML.generateAndSaveHtml(fullName, addr, phone, email, hours, rate);
+        GenerateAndSaveHTML.generateAndSaveHtml(fullName, addr, phone, email, hours,rate);
     }
 
 
