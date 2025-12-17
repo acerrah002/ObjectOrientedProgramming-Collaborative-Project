@@ -1,5 +1,4 @@
 import Iterator.UserDataIterator;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -94,11 +93,12 @@ public class GUI{
 
         
         
-
+        /* Not working yet
         JButton removeButton = new JButton("-");
         setupFieldButtons(panel, gbc, removeButton,3, row);
         removeButton.setToolTipText("Remove the current user data from the saved list.");
         removeButton.setEnabled(false); //Disabled by defult because the user isn't viewing the userdata just entering
+        */
 
         JButton previousButton = new JButton("Previous <<");
         setupFieldButtons(panel, gbc, previousButton, 4, row);
@@ -142,7 +142,8 @@ public class GUI{
                     //Main menu
                     nextButton.setEnabled(false);
                     previousButton.setEnabled(false);
-                    removeButton.setEnabled(false);
+                    //Not working yet
+                    //removeButton.setEnabled(false);
                     firstNameInput.setText("");
                     lastNameInput.setText("");
                     addressInput.setText("");
@@ -159,7 +160,8 @@ public class GUI{
                         // no saved users
                         nextButton.setEnabled(false);
                         previousButton.setEnabled(false);
-                        removeButton.setEnabled(false);
+                        //Not working yet
+                        //removeButton.setEnabled(false);
                         firstNameInput.setText("EmptyList");
                         lastNameInput.setText("EmptyList");
                         addressInput.setText("EmptyList");
@@ -192,7 +194,8 @@ public class GUI{
                     }
                     previousButton.setEnabled(true);
                     nextButton.setEnabled(true);
-                    removeButton.setEnabled(true);
+                    //Not working yet
+                    //removeButton.setEnabled(true);
                 }
            }
         });
@@ -261,7 +264,7 @@ public class GUI{
                 }
             }
         });
-        
+        //not working yet
         //Remove user data from data file
         /* 
         removeButton.addActionListener(new ActionListener() {
@@ -310,7 +313,7 @@ public class GUI{
         System.out.println("Hours Worked: " + hours);
         System.out.println("Rate Per Hour: " + rate);
         String fullName = fn + " " + ln;
-        GenerateAndSaveHTML.generateAndSaveHtml(fullName, addr, phone, email, hours, rate);
+        GenerateAndSaveHTML.generateAndSaveHtml(fullName, addr, phone, email, hours,rate);
     }
 
 
