@@ -1,3 +1,5 @@
+import Iterator.UserDataIterator;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +19,14 @@ public class GUI{
         //ArrayList<ArrayList<String>> result = Helper.Helper(); 
         //System.out.println(result.get(0).get(0));
         GUIHelper();
+
+        // Added by ZM - Iterator Design Pattern
+        UserDataIterator iterator =
+                new UserDataIterator(ReadFile.getArrayList());
+
+        if (iterator.hasNext()) {
+            String[] user = iterator.next();
+        }
     }
 
    
@@ -302,5 +312,6 @@ public class GUI{
         String fullName = fn + " " + ln;
         GenerateAndSaveHTML.generateAndSaveHtml(fullName, addr, phone, email, hours, rate);
     }
- 
+
+
 }
