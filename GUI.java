@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 
 public class GUI{
     //Current Avriable
@@ -305,36 +306,33 @@ public class GUI{
 
 
     public static void CheckIfCorrect(String fn, String ln, String addr, String phone, String email, String hours, String rate) {
-        // Check if names are letters only
+        if (fn.isEmpty() || ln.isEmpty() || addr.isEmpty() || phone.isEmpty() || email.isEmpty() || hours.isEmpty() || rate.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "All fields must be filled out.", "Missing Data", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         if (!isAlpha(fn) || !isAlpha(ln)) {
-            System.out.println("Error: Name should only contain letters.");
+            JOptionPane.showMessageDialog(null, "Names should only contain letters.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        // Check if phone, hours and rate are numeric
         if (!isNumeric(phone)) {
-            System.out.println("Error: Phone number must be digits.");
+            JOptionPane.showMessageDialog(null, "Phone number must be digits.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         if (!isNumeric(hours) || !isNumeric(rate)) {
-            System.out.println("Error: Hours and Rate must be numbers.");
+            JOptionPane.showMessageDialog(null, "Hours and Rate must be valid numbers.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        // Check if email has an @ and .
         if (!email.contains("@") || !email.contains(".")) {
-            System.out.println("Error: Invalid email format.");
+            JOptionPane.showMessageDialog(null, "Invalid email format (missing @ or dot).", "Email Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // If everything is fine proceed
-        System.out.println("Validation passed. Generating HTML...");
+        JOptionPane.showMessageDialog(null, "Validation passed! Generating HTML...", "Success", JOptionPane.INFORMATION_MESSAGE);
+        
         String fullName = fn + " " + ln;
         GenerateAndSaveHTML.generateAndSaveHtml(fullName, addr, phone, email, hours, rate);
     }
 
-    // Simple helper to check for letters
     public static boolean isAlpha(String input) {
         if (input == null || input.isEmpty()) return false;
         for (char c : input.toCharArray()) {
@@ -345,17 +343,14 @@ public class GUI{
         return true;
     }
 
-    // Simple helper to check for nums
     public static boolean isNumeric(String input) {
         if (input == null || input.isEmpty()) return false;
         for (char c : input.toCharArray()) {
-            // allows for decimals
             if (!Character.isDigit(c) && c != '.') {
                 return false;
             }
         }
         return true;
     }
-
 
 }
